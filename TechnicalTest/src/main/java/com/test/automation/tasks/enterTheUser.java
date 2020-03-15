@@ -19,34 +19,28 @@ import net.serenitybdd.screenplay.actions.Enter;
 
 public class enterTheUser implements Task{
 	
-	UserPersonalInformation userInf = new UserPersonalInformation();
-	private String Email;
+	UserPersonalInformation UserInf;
 	
-	public enterTheUser(String email) {
-		this.Email = email;
+	public enterTheUser(UserPersonalInformation userInf) {
+		this.UserInf = userInf;
 	}
 
 	@Override
 	public <T extends Actor> void performAs(T actor) {
 		
-		actor.attemptsTo(Enter.theValue(userInf.getName()).into(NAME));
-		actor.attemptsTo(Enter.theValue(userInf.getLastName()).into(LAST_NAME));
-		actor.attemptsTo(Enter.theValue(userInf.getDocument()).into(DOCUMENT));
-		if(Email == null) {
-			actor.attemptsTo(Enter.theValue(userInf.getEmail()).into(EMAIL));
-			actor.attemptsTo(Enter.theValue(userInf.getEmail()).into(EMAIL_CONFIR));
-		}else {
-			actor.attemptsTo(Enter.theValue(Email).into(EMAIL));
-			actor.attemptsTo(Enter.theValue(Email).into(EMAIL_CONFIR));
-		}
-		actor.attemptsTo(Enter.theValue(userInf.getPassword()).into(PASSWORD));
-		actor.attemptsTo(Enter.theValue(userInf.getPassword()).into(PASSWORD_CONFIR));
+		actor.attemptsTo(Enter.theValue(UserInf.getName()).into(NAME));
+		actor.attemptsTo(Enter.theValue(UserInf.getLastName()).into(LAST_NAME));
+		actor.attemptsTo(Enter.theValue(UserInf.getDocument()).into(DOCUMENT));
+		actor.attemptsTo(Enter.theValue(UserInf.getEmail()).into(EMAIL));
+		actor.attemptsTo(Enter.theValue(UserInf.getEmail()).into(EMAIL_CONFIR));
+		actor.attemptsTo(Enter.theValue(UserInf.getPassword()).into(PASSWORD));
+		actor.attemptsTo(Enter.theValue(UserInf.getPassword()).into(PASSWORD_CONFIR));
 		
 		actor.attemptsTo(Click.on(SEND));
 	}
 	
-	public static enterTheUser PersonalInformation(String email) {
-		return instrumented(enterTheUser.class, email);
+	public static enterTheUser PersonalInformation(UserPersonalInformation userInf) {
+		return instrumented(enterTheUser.class, userInf);
 	}
 
 }

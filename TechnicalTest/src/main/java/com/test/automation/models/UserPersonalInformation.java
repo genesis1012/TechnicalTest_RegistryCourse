@@ -22,6 +22,10 @@ public class UserPersonalInformation {
 		this.password = faker.number().digits(5);
 	}
 	
+	public void setEmail(String Email) {
+		this.email = Email;
+	}
+	
 	public String getName() {
 		return name;
 	}

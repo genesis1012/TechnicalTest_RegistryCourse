@@ -1,7 +1,5 @@
 package com.test.automation.user_interfaces;
 
-import org.openqa.selenium.WebDriver;
-
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.screenplay.targets.Target;
 import net.thucydides.core.annotations.DefaultUrl;
@@ -10,17 +8,11 @@ import net.thucydides.core.annotations.WhenPageOpens;
 @DefaultUrl("https://euno.lms.doctustest.com/")
 public class homePage extends PageObject{
 	
-    
-	
 	@WhenPageOpens
 	public void waitUntilMainElementsAppears() {
 		getDriver().manage().window().maximize();
 	}
-	
-	public WebDriver MyDriver() {
-		return getDriver();
-	}
-	
+		
 	public static final Target USER_NAME = Target.the("user Name")
 			.locatedBy("");
 	

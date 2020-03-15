@@ -6,11 +6,14 @@ Feature: User Registration
 
 	Background: The user starts out on the login page
     Given I am on the registration screen
-    
+   
+  @RegistrySucces 
   Scenario: user registration success
     When Enter the user's personal information
     Then Successful registration
+    And login with registered user
 	
+	@RegistryFail
   Scenario Outline: user registration with invalid values
     When enter incorrect user information <email>
     Then registration <status>

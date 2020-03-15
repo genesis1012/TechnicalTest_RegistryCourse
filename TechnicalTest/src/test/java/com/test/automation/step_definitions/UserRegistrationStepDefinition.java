@@ -5,11 +5,16 @@ import static net.serenitybdd.screenplay.actors.OnStage.theActorCalled;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 import static org.hamcrest.CoreMatchers.is;
 
+import com.test.automation.models.UserInformation;
+import com.test.automation.models.UserPersonalInformation;
+import com.test.automation.questions.LogInSuccessful;
 import com.test.automation.questions.Message;
+import com.test.automation.tasks.LogIn;
 import com.test.automation.tasks.enterTheUser;
 import com.test.automation.tasks.goToRegistration;
 
 import cucumber.api.java.Before;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -17,6 +22,8 @@ import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 
 public class UserRegistrationStepDefinition {
+	
+	UserPersonalInformation userInf = new UserPersonalInformation();
 	
 	@Before
     public void set_the_stage() {
@@ -31,7 +38,7 @@ public class UserRegistrationStepDefinition {
 
 	@When("^Enter the user's personal information$")
 	public void enter_the_user_s_personal_information() {
-		theActorInTheSpotlight().attemptsTo(enterTheUser.PersonalInformation(null));
+		theActorInTheSpotlight().attemptsTo(enterTheUser.PersonalInformation(userInf));
 	}
 
 	@Then("^Successful registration$")
@@ -41,7 +48,8 @@ public class UserRegistrationStepDefinition {
 
 	@When("^enter incorrect user information (.*)$")
 	public void enter_incorrect_user_information(String email) {
-		theActorInTheSpotlight().attemptsTo(enterTheUser.PersonalInformation(email));
+		userInf.setEmail(email);
+		theActorInTheSpotlight().attemptsTo(enterTheUser.PersonalInformation(userInf));
 	}
 
 	@Then("^registration (.*)$")
@@ -52,4 +60,10 @@ public class UserRegistrationStepDefinition {
 	    	theActorInTheSpotlight().should(seeThat(Message.fail(), is(true)));
 	    }
 	}
+	
+	@And("^login with registered user$")
+    public void login_with_registered_user() {
+		theActorInTheSpotlight().attemptsTo(LogIn.whit(new UserInformation(userInf.getEmail(), userInf.getPassword())));
+		theActorInTheSpotlight().should(seeThat(LogInSuccessful.Performed(), is("True")));
+    }
 }

@@ -20,6 +20,10 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'net.serenity-bdd.aggregator'
 
+test {
+  systemProperty "cucumber.options", System.properties.getProperty("cucumber.options")
+}
+
 dependencies {
     compile 'net.serenity-bdd:serenity-core:2.0.70'
     compile 'net.serenity-bdd:serenity-junit:2.0.70'
@@ -33,3 +37,6 @@ dependencies {
     testCompile 'org.slf4j:slf4j-simple:1.7.7'
     testCompile("io.github.bonigarcia:webdrivermanager:3.7.1")
 }
+
+gradle.startParameter.continueOnFailure = true
+
